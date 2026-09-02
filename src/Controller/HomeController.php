@@ -16,4 +16,9 @@ final class HomeController extends AbstractController
             'path' => 'src/Controller/HomeController.php',
         ]);
     }
+    #[Route('/', name: 'app_home')]
+    public function about(): JsonResponse
+    {
+        return $this->render(['home/about.html.twig']);
+    }
 }
