@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
+{% import 'macros/_ui.html.twig' as ui %}
 
 {% block title %} Accueil {% endblock %}
 
-{% block body %}
-    <h1> Citation du jour </h1>
-    <p>Bienvenue sur la page "Citation du jour".</p>
+{% block main %}
+    <h1>Bienvenue sur mon application de pêche</h1>
+
+    {{ ui.alerte('Nouveau : consulte mes dernières prises !', 'succes') }}
+
     <p>Utilise le menu ci-dessus pour naviguer entre les pages.</p>
 {% endblock %}

@@ -39,6 +39,21 @@ final class HomeController extends AbstractController
         ]);
     }
 
+    #[Route('/prises',name: 'app_prises')]
+    public function prises(): Response
+    {
+        $prises = [
+            ['espece' => 'Brochet',  'poids' => 4.2, 'lieu' => 'Lac de Vouglans', 'date' => '2026-04-12', 'record' => true],
+            ['espece' => 'Sandre',   'poids' => 2.8, 'lieu' => 'La Loire',        'date' => '2026-05-03', 'record' => false],
+            ['espece' => 'Truite',   'poids' => 1.1, 'lieu' => 'Le Doubs',        'date' => '2026-03-21', 'record' => false],
+            ['espece' => 'Silure',   'poids' => 12.5,'lieu' => 'Le Rhone',        'date' => '2026-06-30', 'record' => true],
+            ['espece' => 'Perche',   'poids' => 0.6, 'lieu' => 'Lac de Vouglans', 'date' => '2026-07-14', 'record' => false]
+        ];
+        return $this->render('home/prises.html.twig', [
+            'prises' => $prises
+        ]);
+    }
+
     #[Route('/api/random', name: 'app_api_random')]
     public function apiRandom(): JsonResponse
     {

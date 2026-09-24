@@ -1,0 +1,19 @@
+{% macro prise(p) %}
+    <li>
+        {% if p.record %}
+            <strong>{{ p.espece|upper }} — RECORD</strong>
+        {% else %}
+            {{ p.espece }}
+        {% endif %}
+        — {{ p.poids|poids }}
+        <em>({{ categorie_prise(p.poids) }})</em>
+        à {{ p.lieu }}
+        le {{ p.date|date('d/m/Y') }}
+    </li>
+{% endmacro %}
+
+{% macro alerte(message, type = 'info') %}
+    <div class="alerte alerte-{{ type }}">
+        <strong>{{ type|upper }}</strong> — {{ message }}
+    </div>
+{% endmacro %}

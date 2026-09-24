@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/_ui.html.twig' as ui %}
+
+{% block title %} Mes prises {% endblock %}
+
+{% block main %}
+    <h1> Prises </h1>
+
+    <p>
+        {{ prises|length }} prises enregistrées,
+        dont {{ prises|filter(p => p.record)|length }} record(s).
+    </p>
+
+    <ul>
+        {% for prise in prises %}
+            {{ ui.prise(prise) }}
+        {% else %}
+            <li>Aucune prise pour le moment.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
