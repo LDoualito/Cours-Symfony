@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
+{% import 'macros/_ui.html.twig' as ui %}
 
 {% block title %}A propos{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>A propos</h1>
     <p>Bienvenue sur la page "À propos".</p>
+
+    {{ ui.alerte('Site réalisé dans le cadre du TP3 Symfony.') }}
 {% endblock %}

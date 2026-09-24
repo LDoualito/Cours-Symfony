@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/_ui.html.twig' as ui %}
+
+{% block title %}Ajouter une prise{% endblock %}
+
+{% block main %}
+    <h1>Ajouter une prise</h1>
+
+    {% if confirmation %}
+        {{ ui.alerte(confirmation, 'success') }}
+    {% endif %}
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+        {{ form_errors(form) }}
+
+        {{ form_row(form.espece) }}
+        {{ form_row(form.poids) }}
+        {{ form_row(form.lieu) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.commentaire) }}
+        {{ form_row(form.record) }}
+
+        <button type="submit" class="btn btn-primary">Enregistrer la prise</button>
+
+    {{ form_end(form) }}
+{% endblock %}
