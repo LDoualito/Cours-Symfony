@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une prise{% endblock %}
+
+{% block main %}
+    <h1>Modifier : {{ prise.espece }}</h1>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+        {{ form_errors(form) }}
+
+        {{ form_row(form.espece) }}
+        {{ form_row(form.poids) }}
+        {{ form_row(form.spot) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.commentaire) }}
+        {{ form_row(form.record) }}
+
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        <a href="{{ path('app_prises') }}" class="btn btn-secondary">Annuler</a>
+
+    {{ form_end(form) }}
+{% endblock %}

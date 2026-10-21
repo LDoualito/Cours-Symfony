@@ -2,10 +2,20 @@
 
 namespace App\Entity;
 
+use App\Repository\PriseRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[ORM\Entity(repositoryClass: PriseRepository::class)]
 class Prise
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: "Merci d'indiquer l'espèce du poisson.")]
     #[Assert\Length(
         min: 2,
@@ -15,19 +25,17 @@ class Prise
     )]
     private ?string $espece = null;
 
+    #[ORM\Column]
     #[Assert\NotBlank(message: "Merci d'indiquer le poids de la prise.")]
     #[Assert\Positive(message: "Le poids doit être supérieur à zéro.")]
     private ?float $poids = null;
 
-    #[Assert\NotBlank(message: "Merci d'indiquer le lieu de pêche.")]
-    #[Assert\Length(
-        min: 2,
-        max: 100,
-        minMessage: "Le lieu doit contenir au moins {{ limit }} caractères.",
-        maxMessage: "Le lieu ne peut pas dépasser {{ limit }} caractères."
-    )]
-    private ?string $lieu = null;
+    #[ORM\ManyToOne(inversedBy: 'prises')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull(message: "Merci de choisir un spot de pêche.")]
+    private ?Spot $spot = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotBlank(message: "Merci d'indiquer la date de la prise.")]
     #[Assert\LessThanOrEqual(
         value: "today",
@@ -35,13 +43,20 @@ class Prise
     )]
     private ?\DateTimeInterface $date = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Assert\Length(
         max: 500,
         maxMessage: "Le commentaire ne peut pas dépasser {{ limit }} caractères."
     )]
     private ?string $commentaire = null;
 
+    #[ORM\Column]
     private bool $record = false;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getEspece(): ?string
     {
@@ -67,14 +82,14 @@ class Prise
         return $this;
     }
 
-    public function getLieu(): ?string
+    public function getSpot(): ?Spot
     {
-        return $this->lieu;
+        return $this->spot;
     }
 
-    public function setLieu(?string $lieu): static
+    public function setSpot(?Spot $spot): static
     {
-        $this->lieu = $lieu;
+        $this->spot = $spot;
 
         return $this;
     }

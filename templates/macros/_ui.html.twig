@@ -7,8 +7,17 @@
         {% endif %}
         — {{ p.poids|poids }}
         <em>({{ categorie_prise(p.poids) }})</em>
-        à {{ p.lieu }}
+        à {{ p.spot.nom }}
         le {{ p.date|date('d/m/Y') }}
+
+        <a href="{{ path('app_prise_modifier', {id: p.id}) }}">Modifier</a>
+
+        <form method="post"
+              action="{{ path('app_prise_supprimer', {id: p.id}) }}"
+              onsubmit="return confirm('Supprimer définitivement cette prise ?');"
+              style="display: inline;">
+            <button type="submit">Supprimer</button>
+        </form>
     </li>
 {% endmacro %}
 
