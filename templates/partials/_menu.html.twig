@@ -4,6 +4,15 @@
     <a href="{{ path('app_random') }}">Citation du jour</a>
     <a href="{{ path('app_prises') }}">Prises</a>
     <a href="{{ path('app_spots') }}">Spots</a>
-    <a href="{{ path('app_prise_nouvelle') }}">Ajouter une prise</a>
+    {% if app.user %}
+        <a href="{{ path('app_prise_nouvelle') }}">Ajouter une prise</a>
+    {% endif %}
     <a href="{{ path('app_hello', {'name': 'pecheur'}) }}">Bonjour</a>
+
+    {% if app.user %}
+        <span>Connecté : {{ app.user.userIdentifier }}</span>
+        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    {% else %}
+        <a href="{{ path('app_login') }}">Connexion</a>
+    {% endif %}
 </nav>

@@ -10,14 +10,19 @@
         à {{ p.spot.nom }}
         le {{ p.date|date('d/m/Y') }}
 
-        <a href="{{ path('app_prise_modifier', {id: p.id}) }}">Modifier</a>
+        {% if app.user %}
+            <a href="{{ path('app_prise_modifier', {id: p.id}) }}">Modifier</a>
+        {% endif %}
 
-        <form method="post"
-              action="{{ path('app_prise_supprimer', {id: p.id}) }}"
-              onsubmit="return confirm('Supprimer définitivement cette prise ?');"
-              style="display: inline;">
-            <button type="submit">Supprimer</button>
-        </form>
+        {% if is_granted('ROLE_ADMIN') %}
+            <form method="post"
+                  action="{{ path('app_prise_supprimer', {id: p.id}) }}"
+                  onsubmit="return confirm('Supprimer définitivement cette prise ?');"
+                  style="display: inline;">
+                <button type="submit">Supprimer</button>
+            </form>
+        {% endif %}
+
     </li>
 {% endmacro %}
 
