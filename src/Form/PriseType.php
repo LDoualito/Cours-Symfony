@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Prise;
+use App\Entity\Spot;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -30,11 +32,11 @@ class PriseType extends AbstractType
                     'placeholder' => '4.20',
                 ],
             ])
-            ->add('lieu', TextType::class, [
-                'label' => 'Lieu de pêche',
-                'attr' => [
-                    'placeholder' => 'Lac de Vouglans',
-                ],
+            ->add('spot', EntityType::class, [
+                'label' => 'Spot de pêche',
+                'class' => Spot::class,
+                'choice_label' => 'nom',
+                'placeholder' => 'Choisis un spot...',
             ])
             ->add('date', DateType::class, [
                 'label' => 'Date de la prise',

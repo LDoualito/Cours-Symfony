@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/_ui.html.twig' as ui %}
+
+{% block title %}Les spots{% endblock %}
+
+{% block main %}
+    <h1>Les spots de pêche</h1>
+
+    <p>{{ spots|length }} spots référencés.</p>
+
+    {% for spot in spots %}
+        <section class="mb-4">
+            <h2>{{ spot.nom }} <small>({{ spot.typeEau }})</small></h2>
+
+            {% if spot.description %}
+                <p>{{ spot.description }}</p>
+            {% endif %}
+
+            <p>
+                {{ spot.prises|length }} prise(s) enregistrée(s) sur ce spot.
+            </p>
+
+            <ul>
+                {% for prise in spot.prises %}
+                    {{ ui.prise(prise) }}
+                {% else %}
+                    <li>Aucune prise sur ce spot pour le moment.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% else %}
+        <p>Aucun spot référencé.</p>
+    {% endfor %}
+{% endblock %}
