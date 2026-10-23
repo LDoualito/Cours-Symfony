@@ -16,6 +16,8 @@ class PriseController extends AbstractController
     #[Route('/prises/nouvelle', name: 'app_prise_nouvelle')]
     public function nouvelle(Request $request, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $prise = new Prise();
         $form = $this->createForm(PriseType::class, $prise);
 
@@ -61,6 +63,8 @@ class PriseController extends AbstractController
     #[Route('/prises/{id}/modifier', name: 'app_prise_modifier')]
     public function modifier(Prise $prise, Request $request, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $form = $this->createForm(PriseType::class, $prise);
 
         $form->handleRequest($request);
@@ -80,6 +84,8 @@ class PriseController extends AbstractController
     #[Route('/prises/{id}/supprimer', name: 'app_prise_supprimer', methods: ['POST'])]
     public function supprimer(Prise $prise, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $em->remove($prise);
         $em->flush();
 
